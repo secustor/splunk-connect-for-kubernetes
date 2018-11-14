@@ -17,6 +17,16 @@ data:
       @type kubernetes_metrics
       tag kube.*
       node_name "#{ENV['MY_NODE_NAME']}"
+      use_rest_client_ssl true
+      {{- if $.Values.kubernetes.clientCert }}
+      client_cert /fluentd/etc/splunk/k8s_client_cert
+      {{- end }}
+      {{- if $.Values.kubernetes.clientKey }}
+      client_key /fluentd/etc/splunk/k8s_client_key
+      {{- end }}
+      {{- if $.Values.kubernetes.caFile }}
+      ca_file /fluentd/etc/splunk/k8s_ca_file
+      {{- end }}
     </source>
     <filter kube.**>
       @type record_modifier

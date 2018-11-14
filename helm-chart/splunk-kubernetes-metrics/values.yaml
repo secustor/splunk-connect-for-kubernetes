@@ -74,8 +74,8 @@ splunk:
 
 
 image:
-  name: chaitanyaphalak/k8s-new-metrics:beta
-  pullPolicy: IfNotPresent
+  name: chaitanyaphalak/k8s-new-metrics:beta-ssl-latest
+  pullPolicy: Always
 
 
 resources:
@@ -99,3 +99,21 @@ tolerations: []
 
 
 affinity: {}
+
+# = Kubernetes Connection Configs =
+kubernetes:
+  # the URL for calling kubernetes API, by default it will be read from the environment variables
+  url:
+  # if insecureSSL is set to true, insecure HTTPS API call is allowed, default false
+  insecureSSL: false
+  # Path to the certificate file for this client.
+  clientCert:
+  # Path to the private key file for this client.
+  clientKey:
+  # Path to the CA file.
+  caFile:
+  # Path to the file contains the API token. By default it reads from the file "token" in the `secret_dir`.
+  bearerTokenFile:
+  # Path of the location where pod's service account's credentials are stored. Usually you don't need to care about this config, the default value should work in most cases.
+  secretDir:
+  # a list of kubernetes objects to pull periodically
