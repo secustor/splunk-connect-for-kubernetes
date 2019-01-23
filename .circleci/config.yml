@@ -38,3 +38,10 @@ jobs:
           name: Deploy k8s connector
           command: |
             .circleci/deploy_connector.sh
+
+      - run:
+          name: Functional test k8s connector
+          command: |
+            cd test
+            pip3 install -r requirements.txt
+            python3 -m pytest -s
