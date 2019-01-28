@@ -82,6 +82,11 @@ data:
       jq '.record.source = "namespace:\(env.MY_NAMESPACE)/pod:\(env.MY_POD_NAME)" | .record.sourcetype = (.tag | gsub("\\\\."; ":")) | .record'
     </filter>
 
+    <filter kube.**>
+      @type jq_transformer
+      jq '.record.cluster_name = "{{ .Values.kubernetes.clusterName }}" | .record'
+    </filter>
+
     <match kube.**>
       @type splunk_hec
       protocol {{ or .Values.splunk.hec.protocol .Values.global.splunk.hec.protocol | default "https" }}
@@ -109,6 +114,11 @@ data:
       ca_file /fluentd/etc/splunk/hec_ca_file
       {{- end }}
       {{- with .Values.buffer }}
+      <fields>
+        {{- if .Values.kubernetes.clusterName }}
+        cluster_name
+        {{- end }}
+      </fields>
       <buffer>
       {{- range $parameter, $value := . }}
         {{ $parameter }} {{ $value }}
