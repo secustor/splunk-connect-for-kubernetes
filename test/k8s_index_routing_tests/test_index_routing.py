@@ -85,12 +85,13 @@ def test_namespace_routing(setup, test_input, expected):
                                       user=setup["splunk_user"],
                                       password=setup["splunk_password"])
     logging.getLogger().info("Splunk received {0} events in the last minute in the index {1}".format(len(events), index))
+
     # Delete Splunk index
     delete_index_in_splunk(index=index,
                                   url=setup["splunkd_url"],
                                   user=setup["splunk_user"],
                                   password=setup["splunk_password"])
-    assert len(events) != ""
+    assert len(events) > 0
 
 
 
