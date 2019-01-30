@@ -50,6 +50,68 @@ def check_events_from_splunk(index="circleci_events",
 
     return events
 
+
+def create_index_in_splunk(index="",
+                             url="",
+                             user="",
+                             password=""):
+    '''
+    send a request to splunk and to create an index
+    '''
+
+    search_url = '{0}/services/data/indexes?output_mode=json'.format(url)
+    logger.debug('requesting: %s', search_url)
+    data = {
+        'name': index
+    }
+
+    create_job = _requests_retry_session().post(
+        search_url,
+        auth=(user, password),
+        verify=False, data=data)
+
+    if create_job.status_code == 201:
+        logger.info('The index: %s successfully created', index)
+    elif create_job.status_code == 409:
+        logger.info('The index: %s already exits', index)
+    else:
+        return False
+
+    return True
+
+def delete_index_in_splunk(index="",
+                             url="",
+                             user="",
+                             password=""):
+    '''
+    send a request to splunk and to create an index
+    '''
+
+    search_url = '{0}/services/data/indexes/{1}?output_mode=json'.format(url, index)
+    logger.debug('requesting: %s', search_url)
+    data = {
+        'name': index
+    }
+
+    create_job = _requests_retry_session().delete(
+        search_url,
+        auth=(user, password),
+        verify=False, data=data)
+
+    if create_job.status_code == 200:
+        logger.info('The index: %s successfully deleted', index)
+    elif create_job.status_code == 409:
+        logger.info('The index: %s already disabled', index)
+    else:
+        return False
+
+    return True
+
+
+def _compose_search_query(index="circleci_events"):
+    return "search index={0}".format(index)
+
+
 def _collect_events(query, start_time, end_time, url="", user="", password=""):
     '''
     Collect events by running the given search query
