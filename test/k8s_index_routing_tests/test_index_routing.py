@@ -7,7 +7,7 @@ from kubernetes.client.rest import ApiException
 
 
 @pytest.mark.parametrize("test_input,expected", [
-    ("test-namespace", 1),
+    ("test-nothing", 1),
     ("kube-system", 1),
     ("kube-public", 1)
 ])

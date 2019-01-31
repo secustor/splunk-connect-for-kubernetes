@@ -45,10 +45,15 @@ def check_events_from_splunk(index="circleci_events",
     '''
     send a search request to splunk and return the events from the result
     '''
+    query = _compose_search_query(index)
     logger.info("search query = " + str(query))
     events = _collect_events(query, start_time, end_time, url, user, password)
 
     return events
+
+
+def _compose_search_query(index="circleci_events"):
+    return "search index={0}".format(index)
 
 
 def create_index_in_splunk(index="",
@@ -59,7 +64,7 @@ def create_index_in_splunk(index="",
     send a request to splunk and to create an index
     '''
 
-    search_url = '{0}/services/data/indexes?output_mode=json'.format(url)
+    search_url = '{0}/services/data/indexes/{1}?output_mode=json'.format(url, index)
     logger.debug('requesting: %s', search_url)
     data = {
         'name': index
@@ -75,6 +80,7 @@ def create_index_in_splunk(index="",
     elif create_job.status_code == 409:
         logger.info('The index: %s already exits', index)
     else:
+        logger.info('The index: {0} not created, exit code is {1}'.format(index, create_job.status_code))
         return False
 
     return True
