@@ -1,0 +1,19 @@
+global:
+  logLevel: info
+  splunk:
+    hec: {host: $SPLUNK_HEC_HOST_PERF, insecureSSL: true, protocol: http, token: $SPLUNK_HEC_TOKEN_PERF}
+splunk-kubernetes-logging:
+  image: {pullPolicy: Always}
+  kubernetes: {insecureSSL: true}
+  splunk:
+    hec: {indexName: perf_test_events}
+splunk-kubernetes-metrics:
+  image: {pullPolicy: Always}
+  kubernetes: {insecureSSL: true, kubeletPort: 10255, useRestClientSSL: false}
+  splunk:
+    hec: {indexName: perf_test_metrics}
+splunk-kubernetes-objects:
+  image: {pullPolicy: Always}
+  kubernetes: {insecureSSL: true}
+  splunk:
+    hec: {indexName: perf_test_objects}
