@@ -17,7 +17,7 @@ global:
 
 
 # = Log Level =
-# logLevel is to set log level of the Splunk kubernetes metrics collector. Avaiable values are:
+# logLevel is to set log level of the Splunk kubernetes metrics collector. Available values are:
 # * debug
 # * info
 # * warn
@@ -102,9 +102,9 @@ resources:
  # can be configured here.
 buffer:
   "@type": memory
-  total_limit_size: 400m
-  chunk_limit_size: 100m
-  chunk_limit_records: 1000000
+  total_limit_size: 600m
+  chunk_limit_size: 200m
+  chunk_limit_records: 10000
   flush_interval: 5s
   flush_thread_count: 1
   overflow_action: block
@@ -113,15 +113,15 @@ buffer:
 
 aggregatorBuffer:
   "@type": memory
-  total_limit_size: 400m
-  chunk_limit_size: 100m
-  chunk_limit_records: 1000000
+  total_limit_size: 600m
+  chunk_limit_size: 200m
+  chunk_limit_records: 10000
   flush_interval: 5s
   flush_thread_count: 1
   overflow_action: block
   retry_max_times: 3
-  
-  
+
+
 # Configure how often SCK pulls metrics for its kubenetes sources. 15s is the default where 's' is seconds.
 metricsInterval: 15s
 
