@@ -104,7 +104,7 @@ buffer:
   "@type": memory
   total_limit_size: 400m
   chunk_limit_size: 100m
-  chunk_limit_records: 1000000
+  chunk_limit_records: 10000
   flush_interval: 5s
   flush_thread_count: 1
   overflow_action: block
@@ -115,7 +115,7 @@ aggregatorBuffer:
   "@type": memory
   total_limit_size: 400m
   chunk_limit_size: 100m
-  chunk_limit_records: 1000000
+  chunk_limit_records: 10000
   flush_interval: 5s
   flush_thread_count: 1
   overflow_action: block
