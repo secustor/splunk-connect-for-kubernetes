@@ -21,4 +21,4 @@ echo "Deploying k8s-connect with latest changes"
 helm install --name=ci-$CIRCLE_SHA1 -f .circleci/sck_values.yml helm-artifacts/splunk-connect-for-kubernetes*.tgz
 #Todo-need to add test cases and run them before cleaning the deployment
 #wait for deployment to finish, sleep longer for metrics-aggr to start sending metrics
-sleep 90
+sleep 1800
