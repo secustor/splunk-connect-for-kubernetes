@@ -32,10 +32,8 @@ splunk-kubernetes-metrics:
     name:
     pullPolicy: Always
   buffer:
-    "@type": memory
     chunk_limit_records: 1000000
   aggregatorBuffer:
-    "@type": memory
     chunk_limit_records: 1000000
 
 splunk-kubernetes-objects:
