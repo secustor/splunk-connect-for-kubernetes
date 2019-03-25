@@ -154,8 +154,8 @@ DATAGEN_PERF_CASES = [
          'number_of_datagen': 10,
          'message_count': 1000 ,
          'message_size': 1024,
-         'eps': 100,
-         'sleep_duration': 3600
+         'eps': 10,
+         'sleep_duration': 5400
      }
 ]
 
